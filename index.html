@@ -20,6 +20,11 @@
         }
         main {
             padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
         footer {
             background-color: #333;
@@ -49,15 +54,36 @@
         <h1>Lois Pays Dragon</h1>
     </header>
 
+    <main id="content">
+        <!-- Le contenu du fichier sera chargé ici -->
+        <p>Chargement des lois...</p>
+    </main>
 
     <footer>
         <p>&copy; 2025 Le Pays Dragon</p>
     </footer>
 
     <script>
+        // Fonction pour charger le fichier texte
+        fetch('lois.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors du chargement du fichier');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Afficher le contenu du fichier dans la section principale
+                document.getElementById('content').innerHTML = `<pre>${data}</pre>`;
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById('content').innerHTML = 'Une erreur est survenue lors du chargement des lois.';
+            });
+
         // Code JavaScript simple
         console.log('Page chargée avec succès!');
     </script>
-    
+
 </body>
 </html>
